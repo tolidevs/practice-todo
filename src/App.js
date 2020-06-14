@@ -1,6 +1,10 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 import Page404 from './components/404'
 import Home from './components/Home'
 import NavBar from './components/NavBar'
