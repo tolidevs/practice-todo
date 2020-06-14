@@ -1,13 +1,19 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const NavBar = () => {
     return (
-      <nav>
-        <NavLink to="https://github.com/tolidevs">GitHub</NavLink>
-        <NavLink to="https://twitter.com/tolidevs">Twitter</NavLink>
-        <NavLink to="https://medium.com/@t.benson">Medium</NavLink>
-      </nav>
+        <nav>
+            <a href="https://github.com/tolidevs" target="_blank">
+            GitHub
+            </a>
+            <a href="https://twitter.com/tolidevs" target="_blank">
+            Twitter
+            </a>
+            <a href="https://medium.com/@t.benson" target="_blank">
+            Medium
+            </a>
+        </nav>
     );
 }
 
