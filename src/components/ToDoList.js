@@ -2,8 +2,11 @@ import React from 'react'
 import Form from './Form'
 import { useState } from 'react'
 import Task from './Task'
+import { FaSort } from 'react-icons/fa'
 
 let currID = 5;
+
+
 
 const ToDoList = () => {
 
@@ -22,6 +25,7 @@ const ToDoList = () => {
             }
         ])
     const [showForm, setShowForm] = useState(false)
+    const [sorted, setSorted] = useState(false)
 
     const addToDo = (e) => {
         e.preventDefault()
@@ -41,7 +45,13 @@ const ToDoList = () => {
     }
 
     const showTasks = (toDos) => {
-            return toDos.map( toDo => (<Task toDo={toDo} key={toDo.id} />))
+            return toDos.map((toDo) => (
+                <Task
+                    toDo={toDo}
+                    key={toDo.id}
+                    toggleComplete={toggleComplete}
+                />
+            ));
     }
 
     const toggleForm = () => {
@@ -50,9 +60,36 @@ const ToDoList = () => {
 
     function toggleComplete(id) {
         const upDated = toDos.map( task => (task.id === id ? { ...task, complete: !task.complete } : task ))
-        console.log(upDated)
         setToDos(upDated)
     }
+
+    const sortAsc = (arr) => {
+        // console.log(arr)
+        return arr.sort((a, b) => a["deadline"] - b["deadline"]);
+    }
+
+    const sortDesc = (arr) => {
+        return arr.sort((a, b) => b["deadline"] - a["deadline"]);
+    };
+
+    const sortByDeadline = () => {
+        let toDoList = [...toDos]
+        setSorted(() => {
+            if (sorted === "desc") {
+                setToDos(() => sortAsc(toDoList));
+                return "asc";
+            } else if (sorted === "asc") {
+                setToDos(() => sortDesc(toDoList));
+                return "desc";
+            }
+            setToDos(sortAsc(toDoList));
+            return "asc"
+        })
+
+
+    }
+
+    // --------------return---------------
 
     return (
       <>
@@ -61,7 +98,7 @@ const ToDoList = () => {
             <tr>
               <th></th>
               <th>Task</th>
-              <th>Deadline</th>
+              <th onClick={sortByDeadline}>Deadline<FaSort /></th>
               <th>Overdue?</th>
               <th>Complete?</th>
             </tr>
@@ -69,7 +106,7 @@ const ToDoList = () => {
           <tbody>{showTasks(toDos)}</tbody>
         </table>
         <button onClick={toggleForm}>Add To Do</button>
-        {showForm && <Form addToDo={addToDo} toggleComplete={toggleComplete} />}
+        {showForm && <Form addToDo={addToDo} />}
       </>
     );
 }
