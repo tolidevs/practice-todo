@@ -23,7 +23,8 @@ const ToDoList = () => {
                 deadline: new Date("Tue Jun 09 2020 01:00:00 GMT+0100 (British Summer Time)"),
                 complete: false,
             }
-        ])
+    ])
+    // const [toDoList, setToDoList] = useState([...toDos])
     const [showForm, setShowForm] = useState(false)
     const [sorted, setSorted] = useState(false)
 
@@ -85,29 +86,47 @@ const ToDoList = () => {
             setToDos(sortAsc(toDoList));
             return "asc"
         })
+    }
+
+    const filterOverDue = () => {
+        let toDoList = [...toDos];
 
 
     }
 
+
+
+
+
     // --------------return---------------
 
     return (
-      <>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Task</th>
-              <th onClick={sortByDeadline}>Deadline<FaSort /></th>
-              <th>Overdue?</th>
-              <th>Complete?</th>
-            </tr>
-          </thead>
-          <tbody>{showTasks(toDos)}</tbody>
-        </table>
-        <button onClick={toggleForm}>Add To Do</button>
-        {showForm && <Form addToDo={addToDo} />}
-      </>
+        <div>
+            <table>
+            <thead>
+                <tr>
+                <th></th>
+                <th>Task</th>
+                <th onClick={sortByDeadline}>
+                    Deadline
+                    <FaSort />
+                </th>
+                <th>
+                    <label>Overdue?</label>
+                    <select name="overDueOptions" onChange={filterOverDue}>
+                    <option name="overDue">All</option>
+                    <option name="overDue">Overdue</option>
+                    <option name="notOverDue">Not Overdue</option>
+                    </select>
+                </th>
+                <th>Complete?</th>
+                </tr>
+            </thead>
+            <tbody>{showTasks(toDos)}</tbody>
+            </table>
+            <button onClick={toggleForm}>Add To Do</button>
+            {showForm && <Form addToDo={addToDo} />}
+        </div>
     );
 }
 
